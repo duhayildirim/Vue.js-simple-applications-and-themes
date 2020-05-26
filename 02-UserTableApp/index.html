@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <title>USER TABLE</title>
+</head>
+<body>
+
+<div class="p-5" id="app">
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap" @click="newUser">Kullanıcı Ekle</button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" >
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yeni Kullanıcı</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="true">
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label"> İsim </label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="inUser.name" class="form-control" placeholder="isim">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label"> Soyisim </label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="inUser.surname" class="form-control" placeholder="soyisim">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label"> Rol </label>
+                            <div class="col-sm-10">
+                                <select v-model="inUser.role" class="form-control">
+                                    <option value=""> Seçiniz </option>
+                                    <option> admin </option>
+                                    <option> user </option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="editModal" class="modal-footer" style="visibility: hidden">
+                    <a>
+                        <i> Kullanıcı Güncelleniyor...</i>
+                    </a>
+                </div>
+                <div id="endModal" class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" @click="store" >Kaydet</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <h1>KULLANICI TABLOSU <span> (Toplam {{users.length}} adet kullanıcı) </span></h1>
+    <div class="tbl-header">
+        <table cellpadding="10" cellspacing="10" border="0" >
+            <thead>
+            <tr>
+                <th width="5">Sıra</th>
+                <th width="5">ID</th>
+                <th width="10">Ad</th>
+                <th width="25">Soyad</th>
+                <th width="13">Rol</th>
+                <th width="33">İşlemler</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+            <tr v-for="(user , index) in users ">
+                <td width="5">{{index+1}}</td>
+                <td width="5">{{user.id}} </td>
+                <td width="10">{{user.name}}</td>
+                <td width="25">{{user.surname}}</td>
+                <td width="13">{{user.role}}</td>
+                <td width="33">
+                    <a href="javascript:" class="btn btn-sm btn-danger" @click="deleteUser(user.id)">
+                        <i class="fa fa-trash"> Sil </i>
+                    </a>
+                    <a href="javascript:" class="btn btn-sm btn-warning" @click="editUser(index)">
+                        <i class="fa fa-pencil"> Düzenle </i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="../assets/js/vue.js"></script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
